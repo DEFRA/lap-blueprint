@@ -1,10 +1,11 @@
 ---
 layout: "@lap/layouts/BaseLayout.astro"
-phase: alpha
 title: DEFRA Design System
 order: 4
 ---
 
 # DEFRA Design System
 
-The single source of truth for every DEFRA design system and every reusable template.
+This guidance aligns service design with DEFRA-specific design-system expectations.
+
+This section will provide guidance on when to use DEFRA-specific patterns, how they relate to GOV.UK standards, and how teams should evidence design consistency across modernised services.

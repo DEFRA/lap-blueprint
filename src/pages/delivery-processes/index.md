@@ -1,13 +1,12 @@
 ---
 layout: "@lap/layouts/BaseLayout.astro"
-phase: alpha
 title: Delivery Processes
 order: 2
 ---
 
 # Delivery Processes
 
-Use these pages to plan delivery setup, secure access, and governance steps before modernisation work starts.
+These pages cover delivery setup, secure access, and governance steps before modernisation work starts.
 
 - [Source Code Acquisition](./source-code-acquisition/): End-to-end process for identifying owners, securing approvals, transferring code safely, sanitising it, and obtaining IAO sign-off.
 - [PII Scanning](./pii-scanning/): Overview of the LAP PII Screener tool, what it detects, and how to use scan results as a release and sharing decision gate.
