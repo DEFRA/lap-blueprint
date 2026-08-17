@@ -1,9 +1,10 @@
 ---
 layout: "@lap/layouts/BaseLayout.astro"
-phase: alpha
 title: Project Examples
 ---
 
 # Project Examples
 
-Project Examples is a directory of project playbooks used by completed projects. Each example will show the approach followed in practice so teams can reuse, adapt, and apply proven delivery patterns.
+Completed project playbooks are catalogued here so teams can adapt proven delivery patterns.
+
+Each example documents delivery context, implementation approach, key decisions, and outcomes so teams can reuse what works.

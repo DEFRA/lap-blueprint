@@ -107,7 +107,7 @@ Prefix link text with button! to render a GOV.UK button.
 <summary>View source (md)</summary>
 
 ```md
-[button!Start now](./some/page)
+[button!Start now](./some/page/)
 ```
 
 </details>
@@ -130,7 +130,7 @@ Follow [Process P-010](#).
 <details>
 <summary>How do I request sandbox access?</summary>
 
-Follow [Process P-010](./some/page).
+Follow [Process P-010](./some/page/).
 
 </details>
 ```

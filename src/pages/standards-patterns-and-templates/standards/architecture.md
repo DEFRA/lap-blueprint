@@ -1,10 +1,13 @@
 ---
 layout: "@lap/layouts/BaseLayout.astro"
-phase: alpha
 title: Architecture
 order: 4
 ---
 
 # Architecture
 
-The single source of truth for every architecture and every reusable template.
+Architecture guidance for LAP modernisation projects is provided here.
+
+This section will consolidate target-state architecture patterns, decision guidance, and reference templates used across LAP deliveries.
+
+In the meantime, use this page as the entry point for architecture standards that support secure, scalable, and maintainable modernisation outcomes.

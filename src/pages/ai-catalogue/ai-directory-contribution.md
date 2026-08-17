@@ -1,63 +1,54 @@
 ---
 layout: "@lap/layouts/BaseLayout.astro"
-phase: alpha
 title: How to add your LAP AI Artefacts to our LAMAI's AI Directory
 order: 5
 ---
 
-# How to add your LAP AI Artefacts to our LAMAI's AI Directory
+# How to add your LAP AI artefacts to the LAMAI AI Directory
 
-**Title:** How to add your LAP AI Artefacts to our LAMAI's AI Directory
+Register LAP-specific AI definitions in the shared directory so other teams can discover, reuse, and govern them consistently.
 
-**What You're Trying To Do:**
-Use the information below on how to add your LAP AI Artefacts to our LAMAI's AI Directory
+## What you're trying to do
 
-**Who This Is For:**
-AI Artefact Developers, Suppliers who are responsible for building Agentic Works, delivery leads, engineers, and anyone who is responsible for developing or using AI Definitions (Agents, Prompts, Instructions, Skills etc...) before modernisation and AI-assisted workflows begin.
+You want to add one or more LAP AI definitions, such as agents, prompts, skills, or instructions, to the DEFRA AI configuration examples repository and have them reviewed for publication.
 
-**Prerequisites**
+## Who this is for
 
-Please proceed with the links and resources below to first make sure your AI Artefacts are compliant with DEFRA standards
+Primary audience:
 
-<details>
-<summary>Does your AI Agent conform to these DEFRA standards?</summary>
+- engineers and AI artefact developers creating LAP AI definitions
+- delivery leads coordinating publication and governance
+- repository contributors reviewing new directory entries
 
-Before adding a LAP-specific AI Agent to the LAMAI Agent Directory, the agent and its supporting solution must comply with DEFRA’s AI Agent Playbook standards and governance requirements.
+## Before you start
 
-This includes demonstrating that the agent has been designed using the appropriate AI approach, completed the required AI readiness and assurance checks, follows DEFRA’s Responsible Design Principles, adheres to the Technical Delivery Guidance, and has appropriate governance, ownership, risk management, and oversight arrangements in place.
+Before adding a LAP-specific AI agent to the LAMAI Agent Directory, the agent and its supporting solution must comply with DEFRA’s AI Agent Playbook standards and governance requirements.
+
+This includes demonstrating that the agent is designed using the appropriate AI approach, has completed the required AI readiness and assurance checks, follows DEFRA’s Responsible Design Principles, adheres to the Technical Delivery Guidance, and has appropriate governance, ownership, risk management, and oversight arrangements in place.
 
 Teams are responsible for ensuring their agent is lawful, secure, ethical, transparent, and subject to meaningful human oversight before it is registered within LAMAI. Evidence of compliance with these requirements should be available as part of the onboarding and approval process.
 
-**Required DEFRA Guidance**
-
-This below resource could be used to conform to Defra software development standards and generally good coding standards that comply with DDTS code quality standards etc.
+### Required guidance
 
 - [Software Development Standards](https://defra.github.io/software-development-standards/guides/github_copilot/)
-
-The following guidance documents could also be reviewed and adhered to:
-
 - [Right Approach](https://github.com/DEFRA/defra-ai-agents/blob/main/playbook/pages/getting-started/right-approach.md)
 - [AI Checklist](https://github.com/DEFRA/defra-ai-agents/blob/main/playbook/pages/getting-started/ai-checklist.md)
 - [Responsible Design Principles](https://github.com/DEFRA/defra-ai-agents/blob/main/playbook/pages/getting-started/responsible-design-principles.md)
 - [Technical Delivery Guidance](https://github.com/DEFRA/defra-ai-agents/blob/main/playbook/pages/getting-started/technical-delivery-guidance.md)
 - [Governance and Oversight](https://github.com/DEFRA/defra-ai-agents/blob/main/playbook/pages/getting-started/governance-oversight.md)
 
-These standards must be reviewed and satisfied prior to submitting a LAP AI Agent for inclusion in the LAMAI Agent Directory.
-
-</details>
-
-**Step-by-Step:**
+## Submission process
 
 1. Clone the [DEFRA AI config examples repository](https://github.com/DEFRA/defra-ai-config-examples).
 
 2. Ensure that all new definitions follow the LAP naming convention:\
-   LAP-(your AI definition name)\
+   `LAP-(your AI definition name)`\
    For example:
    - LAP-Casework-Agent
    - LAP-Document-Summariser
    - LAP-Inspection-Skill
 
-3. Following the navigation structure please place your LAP specific AI definitions under relevant sections. Please make sure default.html is updated so navigation updates could take place for your definitions:
+3. Following the navigation structure, place your LAP-specific AI definitions under the relevant sections. Update `default.html` so navigation updates include your definitions:
 
    ```ascii
    Agents
@@ -71,37 +62,37 @@ These standards must be reviewed and satisfied prior to submitting a LAP AI Agen
        └── Other
    ```
 
-   Any other supporting AI configuration files such as images or docs etc...should go in the repo under assets and link accordingly from your definition documentation
+   Any supporting AI configuration files, such as images or documentation, should go in the repository under assets and be linked from your definition documentation.
 
-   Please follow same structure in case you have other AI definitions such as Instructions, Prompts and Skills
+   Follow the same structure for other AI definitions such as instructions, prompts, and skills.
 
-4. Create a Pull Request (PR) and once it is reviewed, please kindly merge your changes into the repository. You may need contributor access to the repo, please contact the Owners/Contributors of the [DEFRA AI config examples repository](https://github.com/DEFRA/defra-ai-config-examples) or Contact "neil.davies@defra.gov.uk" as the Program Manager for LAP programme or "AICapabilitiesEnablement@defra.gov.uk" for both contributor access to the review and have your PR reviewed.
+4. Create a pull request (PR). Once reviewed, merge your changes into the repository. If you need contributor access or a review, contact the owners/contributors of the [DEFRA AI config examples repository](https://github.com/DEFRA/defra-ai-config-examples), Neil Davies (Programme Manager for LAP) at neil.davies@defra.gov.uk, or AICapabilitiesEnablement@defra.gov.uk.
 
-**Who To Contact:**
-Delivery lead (process coordination), engineering lead (Ai Directory repository contributor), AICapabilitiesEnablement@defra.gov.uk
+## Review and approval
 
-**Governance / Approval Gate:**
+Before merging, reviewers should confirm:
 
-**Related Blocker:** -
+- standards and governance checks are complete
+- documentation is clear and complete
+- ownership and support details are included
+- naming and placement follow repository conventions
 
-**Related Agent/Tool Links:**
+## Who to contact
 
-- [AI Directory - AGENTS](https://defra.github.io/defra-ai-config-examples/pages/agents/)
-- [AI Directory - INSTRUCTIONS](https://defra.github.io/defra-ai-config-examples/pages/instructions/)
-- [AI Directory - PROMPTS](https://defra.github.io/defra-ai-config-examples/pages/prompts/)
-- [AI Directory - SKILLS](https://defra.github.io/defra-ai-config-examples/pages/skills/)
+- Delivery lead (process coordination)
+- Engineering lead (repository contribution support)
+- AICapabilitiesEnablement@defra.gov.uk (governance and approval support)
 
-**Status:**
-Draft (pending validation or approval by AICE and Defra Stakeholders on LAP Programme)
+## Related links
 
-Use this to find AI Definitions sucha sAgents, Instructions, Prompts, Skills that are being used across LAP and DEFRA
+- [AI Directory - Agents](https://defra.github.io/defra-ai-config-examples/pages/agents/)
+- [AI Directory - Instructions](https://defra.github.io/defra-ai-config-examples/pages/instructions/)
+- [AI Directory - Prompts](https://defra.github.io/defra-ai-config-examples/pages/prompts/)
+- [AI Directory - Skills](https://defra.github.io/defra-ai-config-examples/pages/skills/)
 
-### Agents, Instructions, Skills, Prompts
+## Agents, Instructions, Skills, Prompts
 
-- [Current available AGENTS conforming to DEFRA standards](https://defra.github.io/defra-ai-config-examples/pages/agents/)
-
-- [Current available INSTRUCTIONS conforming to DEFRA standards](https://defra.github.io/defra-ai-config-examples/pages/instructions/)
-
-- [Current available PROMPTS conforming to DEFRA standards](https://defra.github.io/defra-ai-config-examples/pages/prompts/)
-
-- [Current available SKILLS conforming to DEFRA standards](https://defra.github.io/defra-ai-config-examples/pages/skills/)
+- [Current agents conforming to DEFRA standards](https://defra.github.io/defra-ai-config-examples/pages/agents/)
+- [Current instructions conforming to DEFRA standards](https://defra.github.io/defra-ai-config-examples/pages/instructions/)
+- [Current prompts conforming to DEFRA standards](https://defra.github.io/defra-ai-config-examples/pages/prompts/)
+- [Current skills conforming to DEFRA standards](https://defra.github.io/defra-ai-config-examples/pages/skills/)

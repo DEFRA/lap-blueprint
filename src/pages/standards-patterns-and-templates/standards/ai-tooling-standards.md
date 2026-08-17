@@ -1,27 +1,26 @@
 ---
 layout: "@lap/layouts/BaseLayout.astro"
-phase: alpha
 title: AI Tooling Standards
 order: 4
 ---
 
 # AI Tooling Standards
 
-Use this the information below to get information on approved AI tooling and existing examples within DEFRA state
+Approved AI tooling guidance and reusable implementation examples across DEFRA are collected here.
 
 ## AI Toolkit
 
-Use these links to view the current state of AI tools available within DEFRA from AI Toolkit portal, including guidance on approved tools and how to request access.
+The links below provide currently approved tools and access guidance from the AI Toolkit portal.
 
 - [Deliver with AI](https://digital.defra.gov.uk/ai-toolkit/deliver-with-ai)
 - [AI Radar Diagram](https://digital.defra.gov.uk/ai-toolkit/tools/diagram)
 - [AI Patterns: Reusable proofs of concept from DEFRA teams.](https://digital.defra.gov.uk/ai-toolkit/patterns)
 
-## Github Copilot specific Tools/Examples for DEFRA
+## GitHub Copilot tools and examples for DEFRA
 
-Use this link for Practical setup guidance for configuring GitHub Copilot in DEFRA projects — agents, instructions, skills, prompts, and cross-tool configuration.
+You can find practical setup guidance for configuring GitHub Copilot in DEFRA projects, including agents, instructions, skills, prompts, and cross-tool configuration here:
 
-- [GHCP specific examples](https://defra.github.io/defra-ai-config-examples/)
+- [GitHub Copilot configuration examples](https://defra.github.io/defra-ai-config-examples/)
 
 ### Agents, Instructions, Skills, Prompts
 
@@ -33,20 +32,20 @@ Use this link for Practical setup guidance for configuring GitHub Copilot in DEF
 
 - [Current available SKILLS conforming to DEFRA standards](https://defra.github.io/defra-ai-config-examples/pages/skills/)
 
-## DEFRA Group Legacy Modernization Playbook
+## DEFRA group legacy modernisation playbook
 
-- Recommended as a key resource for modernization guidance.
+- Recommended as a key resource for modernisation guidance.
 - Could potentially become a living document and future central hub for tooling guidance.
 - [Project for Legacy Modernisation Playbook](https://github.com/DEFRA/defra-ai-legacy-modernisation)
 - [DEFRA AI Legacy Modernisation Playbook Portal](https://defra.github.io/defra-ai-legacy-modernisation/)
 
-## DEFRA Group Modernization Playbook
+## DEFRA group modernisation playbook
 
-A step-by-step guide to using AI-assisted reverse engineering to produce Product Requirements Documents from legacy application artefacts, developed by Defra's Legacy Application Programme.
+A step-by-step guide to using AI-assisted reverse engineering to produce Product Requirements Documents from legacy application artefacts, developed by DEFRA's Legacy Application Programme.
 
 - [Defra AI Modernisation Playbook](https://github.com/DEFRA/defra-ai-modernisation-playbook)
 
-## DEFRA Group AI SDLC Playbook
+## DEFRA group AI SDLC playbook
 
 - [Contains AI-related development guidance, standards, and supporting material](https://github.com/DEFRA/defra-ai-sdlc)
 

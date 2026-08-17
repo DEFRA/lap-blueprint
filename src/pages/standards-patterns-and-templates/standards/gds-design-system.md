@@ -1,17 +1,20 @@
 ---
 layout: "@lap/layouts/BaseLayout.astro"
-phase: alpha
 title: GDS Design System
 order: 4
 ---
 
-## GDS Design System
+# GDS Design System
+
+This guidance aligns modernised services with GOV.UK design standards and delivery expectations.
+
+## What this standard requires
 
 The **GOV.UK Design System (GDS Design System)** provides a collection of reusable styles, components, patterns, and guidance for building accessible, consistent, and user-centred government digital services. It is based on extensive user research and lessons learned across government services, helping teams avoid reinventing common solutions and focus on solving user needs.
 
 The Design System supports the wider **Government Design Principles** and **GOV.UK Service Standard**, ensuring services are designed around user needs, accessibility, simplicity, and evidence-based decision making. Teams should adopt existing components and patterns wherever possible before creating custom solutions.
 
-### Core GDS Principles
+## Core GDS principles
 
 The Government Design Principles provide the foundation for service design across government:
 
@@ -27,7 +30,7 @@ The Government Design Principles provide the foundation for service design acros
 10. Make things open: it makes things better
 11. Minimise environmental impact
 
-### Design System Expectations
+## Design system expectations
 
 When modernising legacy applications, teams should:
 
@@ -38,11 +41,11 @@ When modernising legacy applications, teams should:
 - Ensure compliance with WCAG 2.2 AA accessibility requirements.
 - Contribute reusable patterns and lessons learned back to the organisation where appropriate.
 
-### Legacy Modernisation Guidance
+## Legacy modernisation guidance
 
 For Agentic AI-driven modernisation initiatives, the GOV.UK Design System should be treated as the default UI and interaction framework unless there is a justified business or technical reason to deviate. Existing screens should be assessed against GOV.UK components and patterns to identify opportunities for simplification, consistency, accessibility improvements, and reduction of custom code. Reusable design patterns should be prioritised over bespoke implementations to accelerate delivery and reduce long-term maintenance costs.
 
-### References
+## References
 
 - [GOV.UK Design System](https://design-system.service.gov.uk/)
 - [GOV.UK Design Principles](https://www.gov.uk/guidance/government-design-principles)
