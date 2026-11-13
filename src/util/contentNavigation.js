@@ -1,6 +1,6 @@
 /**
  * @typedef {Object} MarkdownModule
- * @property {{ title?: string, order?: number, group?: string, groupOrder?: number, hidden?: boolean }=} frontmatter
+ * @property {{ title?: string, order?: number, group?: string, hidden?: boolean, redirect?: string }=} frontmatter
  */
 
 /**
@@ -8,11 +8,11 @@
  * @property {string|null} parentPath
  * @property {string} routePath
  * @property {string} href
+ * @property {string} linkHref
  * @property {string} label
  * @property {string} slug
  * @property {number} order
  * @property {string} group
- * @property {number} groupOrder
  */
 
 /**
@@ -122,6 +122,17 @@ const byOrderThenLabel = (a, b) =>
   a.order - b.order || a.label.localeCompare(b.label);
 
 /**
+ * Parses a finite numeric value from frontmatter-like input.
+ * @param {unknown} value
+ * @param {number} fallback
+ * @returns {number}
+ */
+function toFiniteNumber(value, fallback) {
+  const numericValue = Number(value);
+  return Number.isFinite(numericValue) ? numericValue : fallback;
+}
+
+/**
  * Builds normalized navigation pages from markdown modules.
  * @param {Record<string, unknown>} markdownModules
  * @param {string} normalizedBase
@@ -130,7 +141,7 @@ const byOrderThenLabel = (a, b) =>
 export function buildNavPages(markdownModules, normalizedBase) {
   return Object.entries(markdownModules)
     .filter(([path, module]) => {
-      if (path.split("/").at(-1)?.startsWith("_")) {
+      if (path.split("/").some((x) => x.startsWith("_"))) {
         return false;
       }
 
@@ -150,65 +161,75 @@ export function buildNavPages(markdownModules, normalizedBase) {
       const segments = routePath.split("/").filter(Boolean);
       const slug = segments.at(-1) ?? "";
       const title = markdownModule.frontmatter?.title;
-      const order = Number.isFinite(markdownModule.frontmatter?.order)
-        ? Number(markdownModule.frontmatter?.order)
-        : 0;
+      const order = toFiniteNumber(markdownModule.frontmatter?.order, 0);
       const group =
         typeof markdownModule.frontmatter?.group === "string"
           ? markdownModule.frontmatter.group.trim()
           : "";
-      const groupOrder = Number.isFinite(markdownModule.frontmatter?.groupOrder)
-        ? Number(markdownModule.frontmatter?.groupOrder)
-        : 0;
+      const redirect =
+        typeof markdownModule.frontmatter?.redirect === "string"
+          ? markdownModule.frontmatter.redirect.trim()
+          : "";
+      const navLabel =
+        typeof markdownModule.frontmatter?.navLabel === "string" &&
+        markdownModule.frontmatter.navLabel.trim()
+          ? markdownModule.frontmatter.navLabel.trim()
+          : undefined;
+      const href = normalizeHref(
+        withBase(`/${normalizedRoutePath}`, normalizedBase),
+      );
 
       return {
         parentPath: parentRoutePath,
         routePath: pageRoutePath,
-        href: normalizeHref(
-          withBase(`/${normalizedRoutePath}`, normalizedBase),
-        ),
+        href,
+        linkHref: redirect ? normalizeHref(withBase(redirect, normalizedBase)) : href,
         label:
           typeof title === "string" && title.trim() ? title : toLabel(slug),
+        navLabel,
         slug,
         order,
         group,
-        groupOrder,
       };
     })
     .sort(byOrderThenLabel);
 }
 
 /**
- * Groups top-level pages by frontmatter group.
- * @param {NavPage[]} markdownPages
+ * Groups a set of sibling pages by frontmatter group. Ungrouped pages (group
+ * is an empty string) are always returned first as a group with a null name.
+ * Remaining groups are ordered by the lowest `order` value among their
+ * pages, and pages within each group are ordered by their own `order`.
+ * @param {NavPage[]} pages
  * @returns {NavGroup[]}
  */
-export function buildTopLevelGroups(markdownPages) {
-  const topLevelPages = markdownPages.filter(
-    (page) => page.parentPath === null || page.parentPath === "/",
-  );
-  const grouped = topLevelPages.reduce((groupsByName, page) => {
+export function buildPageGroups(pages) {
+  const groupsByName = pages.reduce((groupsByName, page) => {
     const existingGroup = groupsByName.get(page.group);
 
     if (existingGroup) {
       existingGroup.pages.push(page);
       existingGroup.pages.sort(byOrderThenLabel);
-      existingGroup.order = Math.min(existingGroup.order, page.groupOrder);
+      existingGroup.order = Math.min(existingGroup.order, page.order);
       return groupsByName;
     }
 
     groupsByName.set(page.group, {
       name: page.group,
-      order: page.groupOrder,
+      order: page.order,
       pages: [page],
     });
 
     return groupsByName;
   }, new Map());
 
-  return Array.from(grouped.values()).sort(
-    (a, b) => a.order - b.order || a.name.localeCompare(b.name),
-  );
+  return Array.from(groupsByName.values()).sort((a, b) => {
+    if (a.name === "" || b.name === "") {
+      return a.name === b.name ? 0 : a.name === "" ? -1 : 1;
+    }
+
+    return a.order - b.order || a.name.localeCompare(b.name);
+  });
 }
 
 /**

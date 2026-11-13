@@ -1,9 +1,18 @@
 @use "../../node_modules/govuk-frontend/dist/govuk/index.scss" as * with (
-  $govuk-assets-path: "/lap-blueprint/assets/"
+  $govuk-assets-path: "/lap-blueprint/assets/",
+  $govuk-font-family: (Arial, sans-serif)
 );
 
 :root {
   --govuk-brand-colour: #{govuk-organisation-colour("department-for-environment-food-rural-affairs")};
+  
+}
+body.dev {
+  --govuk-brand-colour: red;
+}
+
+.govuk-header__homepage-link {
+  display: inline-block;
 }
 
 .govuk-header__defra-logo {
@@ -22,4 +31,318 @@
 .lap-header-search {
   width: 100%;
   max-width: 420px;
+}
+
+.govuk-details__summary > .govuk-details__summary-text:is(h1, h2, h3, h4, h5, h6) {
+  display: inline;
+  margin: 0;
+  font: inherit;
+}
+
+pre.astro-code {
+  @include govuk-font($size: 19);
+}
+
+// ─── Mermaid diagram lightbox ────────────────────────────────────────────────
+
+// Clickable diagram affordance
+pre.mermaid[data-lightbox] {
+  position: relative;
+  cursor: zoom-in;
+
+  &:focus-visible {
+    outline: govuk-spacing(1) solid govuk-colour("yellow");
+    outline-offset: 0;
+  }
+
+  // "Click to expand" badge, revealed on hover/focus
+  &::after {
+    content: "Click to expand";
+    position: absolute;
+    right: govuk-spacing(2);
+    bottom: govuk-spacing(2);
+    padding: govuk-spacing(1) govuk-spacing(2);
+    background: govuk-colour("black");
+    color: govuk-colour("white");
+    font-family: $govuk-font-family;
+    font-size: 14px;
+    line-height: 1.25;
+    border-radius: 2px;
+    opacity: 0;
+    transition: opacity 0.15s ease;
+    pointer-events: none;
+  }
+
+  &:hover::after,
+  &:focus-visible::after {
+    opacity: 1;
+  }
+}
+
+// Full-viewport lightbox overlay
+.lap-diagram-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(govuk-colour("black"), 0.88);
+
+  &[hidden] {
+    display: none;
+  }
+
+  // Close button – top-right corner
+  &__close {
+    position: absolute;
+    top: govuk-spacing(3);
+    right: govuk-spacing(3);
+    z-index: 1;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    border: 2px solid govuk-colour("white");
+    border-radius: 50%;
+    background: transparent;
+    color: govuk-colour("white");
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.15s ease, color 0.15s ease;
+
+    &:hover {
+      background: govuk-colour("white");
+      color: govuk-colour("black");
+    }
+
+    &:focus-visible {
+      outline: govuk-spacing(1) solid govuk-colour("yellow");
+      outline-offset: 2px;
+    }
+  }
+
+  // Usage hint shown at the bottom
+  &__hint {
+    position: absolute;
+    bottom: govuk-spacing(4);
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 0;
+    color: govuk-colour("white");
+    font-family: $govuk-font-family;
+    font-size: 16px;
+    opacity: 0.75;
+    pointer-events: none;
+    white-space: nowrap;
+  }
+
+  // Canvas fills the viewport; handles pointer/touch events
+  &__canvas {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    cursor: grab;
+
+    &:active {
+      cursor: grabbing;
+    }
+  }
+
+  // Zoom/pan transform wrapper
+  &__transform {
+    transform-origin: center center;
+    will-change: transform;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    svg {
+      display: block;
+      max-width: 90vw;
+      max-height: 90vh;
+    }
+  }
+}
+
+// ─── Artefact directory (searchable, filterable, sortable agent table) ─────────────
+
+.lap-agent-filter {
+  padding: govuk-spacing(3);
+  margin-bottom: govuk-spacing(4);
+  border: 1px solid $govuk-border-colour;
+  background: govuk-colour("light-grey");
+
+  &__header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: govuk-spacing(2);
+  }
+
+  // Lay the search and facet groups out side by side above the table
+  &__body {
+    display: flex;
+    flex-wrap: wrap;
+    gap: govuk-spacing(3) govuk-spacing(6);
+    align-items: flex-start;
+
+    .govuk-form-group,
+    .govuk-fieldset {
+      margin-bottom: 0;
+    }
+
+    // Search takes the left half; the Type filter is centred in the right half
+    .govuk-form-group {
+      flex: 0 1 50%;
+      min-width: 0;
+    }
+
+    .govuk-fieldset {
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+
+  .govuk-input {
+    max-width: none;
+    height: 2.75rem;
+    @include govuk-font($size: 24);
+  }
+}
+
+.lap-agent-directory__toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: govuk-spacing(2);
+
+  .govuk-button {
+    margin-bottom: 0;
+  }
+}
+
+// Removable selected-filter tags
+.lap-agent-selected {
+  display: flex;
+  flex-wrap: wrap;
+  gap: govuk-spacing(1);
+  margin-bottom: govuk-spacing(3);
+
+  &[hidden] {
+    display: none;
+  }
+}
+
+.lap-agent-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: govuk-spacing(1) govuk-spacing(2);
+  border: 1px solid $govuk-border-colour;
+  border-radius: 2px;
+  background: govuk-colour("white");
+  color: $govuk-text-colour;
+  font-family: $govuk-font-family;
+  font-size: 16px;
+  line-height: 1.25;
+  cursor: pointer;
+
+  &:hover {
+    background: govuk-colour("light-grey");
+  }
+
+  &:focus-visible {
+    outline: govuk-spacing(1) solid govuk-colour("yellow");
+    outline-offset: 0;
+    box-shadow: 0 2px 0 govuk-colour("black");
+  }
+}
+
+// Sortable column header button
+.lap-agent-sort {
+  display: inline-flex;
+  align-items: center;
+  gap: govuk-spacing(1);
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+
+  &::after {
+    content: "\2195"; // up-down arrow, indicating "sortable"
+    font-weight: 400;
+    opacity: 0.5;
+  }
+
+  &:focus-visible {
+    outline: govuk-spacing(1) solid govuk-colour("yellow");
+    outline-offset: 0;
+    background: govuk-colour("yellow");
+    box-shadow: 0 2px 0 govuk-colour("black");
+  }
+}
+
+[aria-sort="ascending"] .lap-agent-sort::after {
+  content: "\2191"; // up arrow
+  opacity: 1;
+}
+
+[aria-sort="descending"] .lap-agent-sort::after {
+  content: "\2193"; // down arrow
+  opacity: 1;
+}
+
+.lap-agent-table {
+  table-layout: fixed;
+
+  td,
+  th {
+    word-wrap: break-word;
+  }
+}
+
+// ─── Cards (task tiles) ──────────────────────────────────────────────────────
+
+.lap-card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: govuk-spacing(4);
+  margin-bottom: govuk-spacing(6);
+}
+
+.lap-card {
+  display: flex;
+  flex-direction: column;
+  padding: govuk-spacing(4);
+  border: 1px solid $govuk-border-colour;
+  background: govuk-colour("white");
+
+  &__heading {
+    margin-bottom: govuk-spacing(2);
+  }
+
+  // Push the links to the foot of the card so they line up across a row.
+  &__links {
+    margin-top: auto;
+    margin-bottom: 0;
+    padding-top: govuk-spacing(2);
+  }
+}
+
+// ─── Footer: tighten vertical whitespace ─────────────────────────────────────
+
+.govuk-footer {
+  padding-top: govuk-spacing(4);
+  padding-bottom: govuk-spacing(4);
+}
+
+// The small crown sits alone above the crest, leaving a large empty band.
+.govuk-footer__crown {
+  display: none;
 }

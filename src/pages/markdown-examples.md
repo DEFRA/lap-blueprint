@@ -80,11 +80,12 @@ npm run build
 
 ## Internal links
 
-Internal page links should be relative, omit the .md extension, and end with a trailing slash.
+Internal page links should be relative, omit the .md extension, and end with a trailing slash. Use `~/` to link from the site root when that is clearer than repeated parent segments.
 
 - [Home](#)
 - [Processes index](#)
 - [Process P-001](#)
+- [Artefact Directory](~/artefact-directory/)
 
 <details>
 <summary>View source (md)</summary>
@@ -93,6 +94,7 @@ Internal page links should be relative, omit the .md extension, and end with a t
 - [Home](./)
 - [Processes index](./processes/)
 - [Process P-001](./processes/p-001-scan-code-for-pii/)
+- [Artefact Directory](~/artefact-directory/)
 ```
 
 </details>
@@ -116,8 +118,10 @@ Prefix link text with button! to render a GOV.UK button.
 
 Use `<details>` and `<summary>` HTML tags. The Markdown pipeline automatically adds GOV.UK classes.
 
+Add a heading inside the summary to render its text as a linked heading without the standard GOV.UK heading class.
+
 <details>
-<summary>How do I request sandbox access?</summary>
+<summary><h3>How do I request sandbox access?</h3></summary>
 
 Follow [Process P-010](#).
 
@@ -128,7 +132,7 @@ Follow [Process P-010](#).
 
 ```md
 <details>
-<summary>How do I request sandbox access?</summary>
+<summary><h3>How do I request sandbox access?</h3></summary>
 
 Follow [Process P-010](./some/page).
 

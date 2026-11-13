@@ -1,9 +1,8 @@
 ---
-import PageTreeItem from "./PageTreeItem.astro";
+import NavGroupList from "./NavGroupList.astro";
 import {
   buildChildPagesByParent,
   buildNavPages,
-  buildTopLevelGroups,
   getNormalizedBase,
   normalizePath,
   stripBase,
@@ -19,32 +18,42 @@ const markdownModules = import.meta.glob("/src/pages/**/*.md", {
   eager: true,
 });
 const markdownPages = buildNavPages(markdownModules, normalizedBase);
-const orderedTopLevelGroups = buildTopLevelGroups(markdownPages);
+const topLevelPages = markdownPages.filter(
+  (page) => page.parentPath === null || page.parentPath === "/",
+);
 const childPagesByParentPath = buildChildPagesByParent(markdownPages);
+
+// Show only the active area's sub-tree; fall back to all sections on
+// standalone pages that have no children (Home, FAQs, Glossary).
+const activeSection = topLevelPages.find(
+  (page) =>
+    page.routePath !== "/" &&
+    (currentRoutePath === page.routePath ||
+      currentRoutePath.startsWith(`${page.routePath}/`)),
+);
+const activeSectionChildPages = activeSection
+  ? (childPagesByParentPath.get(activeSection.routePath) ?? [])
+  : [];
+const activeSectionHasChildren = activeSectionChildPages.length > 0;
+// Render the active section's tiers directly, without the section itself as a
+// parent item; otherwise list the top-level sections.
+const navPages =
+  activeSection && activeSectionHasChildren
+    ? activeSectionChildPages
+    : topLevelPages.filter((page) => page.routePath !== "/");
 ---
 
 <nav class="lap-side-navigation" aria-label="Markdown pages">
   {
-    orderedTopLevelGroups.length > 0 ? (
-      orderedTopLevelGroups.map((group) => (
-        <>
-          <h3 class="govuk-heading-s govuk-!-margin-bottom-2">
-            {group.name || "Documentation"}
-          </h3>
-          <ul class="govuk-list lap-side-navigation__list">
-            {group.pages.map((page) => {
-              return (
-                <PageTreeItem
-                  page={page}
-                  currentPath={currentPath}
-                  currentRoutePath={currentRoutePath}
-                  childPagesByParentPath={childPagesByParentPath}
-                />
-              );
-            })}
-          </ul>
-        </>
-      ))
+    topLevelPages.length > 0 ? (
+      <ul class="govuk-list lap-side-navigation__list">
+        <NavGroupList
+          pages={navPages}
+          currentPath={currentPath}
+          currentRoutePath={currentRoutePath}
+          childPagesByParentPath={childPagesByParentPath}
+        />
+      </ul>
     ) : (
       <p class="govuk-body-s govuk-!-margin-bottom-0">
         No markdown pages found in this folder.
